@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8000/todos';
+const baseUrl = 'https://whispering-beach-69994.herokuapp.com/todos';
 
 export const loadTodos = () => {
   return fetch(baseUrl).then((res) => res.json());
