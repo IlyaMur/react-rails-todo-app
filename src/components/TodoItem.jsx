@@ -28,7 +28,9 @@ const Todo = ({ todo, onTodoRemoval, onTodoToggle }) => {
             onTodoRemoval(todo);
           }}
         >
-          <Button className="remove-todo-button" type="primary" danger></Button>
+          <Button className="remove-todo-button" type="primary" danger>
+            X
+          </Button>
         </Popconfirm>,
       ]}
       className="list-item"
