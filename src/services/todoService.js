@@ -15,5 +15,25 @@ export const createTodo = (todo) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ title: todo.title, completed: todo.completed }),
-  });
+  }).then((res) => res.json());
+};
+
+export const updateTodo = (todo) => {
+  return fetch(`${baseUrl}/${todo.id}`, {
+    method: 'PUT',
+    header: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id: todo.id,
+      title: todo.title,
+      completed: todo.completed,
+    }),
+  }).then((res) => res.json());
+};
+
+export const deleteTodos = (id) => {
+  return fetch(`${baseUrl}/${id}`, {
+    method: 'DELETE',
+  }).then((res) => res.json());
 };
