@@ -36,9 +36,28 @@ const TodoList = () => {
     message.info('Статус обновлен!');
   };
 
-  const refrsh = () => {};
+  const refresh = () => {
+    loadTodos()
+      .then((json) => {
+        setTodos(json);
+        setActiveTodos(json.filter((todo) => todo.completed === false));
+        setCompletedTodos(json.filter((todo) => todo.completed === true));
+      })
+      .then(console.log('Список загружен'));
+  };
 
-  const onRefresh = useCallback;
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    let data = await loadTodos;
+    setTodos(data);
+    setActiveTodos(data.filter((todo) => todo.completed === false));
+    setCompletedTodos(data.filter((todo) => todo.completed === true));
+    setRefreshing(false);
+    console.log('Refresh state', refreshing);
+  }, [refreshing]);
+
+  useEffect(() => {
+    refresh();
+  }, [refreshing]);
 };
-
 export default TodoList;
