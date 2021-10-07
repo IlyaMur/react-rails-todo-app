@@ -5,10 +5,11 @@ import TodoTab from './TodoTab';
 import TodoForm from './TodoForm';
 import {
   createTodo,
-  deleteTodo,
+  deleteTodos,
   loadTodos,
   updateTodo,
 } from '../services/todoService';
+import Todotab from './TodoTab';
 
 const { TabPane } = Tabs;
 const { Content } = Layout;
@@ -17,7 +18,7 @@ const TodoList = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [todos, setTodos] = useState([]);
   const [activeTodos, setActiveTodos] = useState([]);
-  const [completedTodos, setCompletedTodos] = useState();
+  const [completedTodos, setCompletedTodos] = useState([]);
 
   const handleFormSubmit = (todo) => {
     console.log('Todo to create', todo);
@@ -26,7 +27,7 @@ const TodoList = () => {
   };
 
   const handleRemoveTodo = (todo) => {
-    deleteTodo(todo.id).then(onRefresh());
+    deleteTodos(todo.id).then(onRefresh());
     message.warn('Дело удалено');
   };
 
@@ -48,7 +49,8 @@ const TodoList = () => {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    let data = await loadTodos;
+    let data = await loadTodos();
+
     setTodos(data);
     setActiveTodos(data.filter((todo) => todo.completed === false));
     setCompletedTodos(data.filter((todo) => todo.completed === true));
@@ -69,6 +71,29 @@ const TodoList = () => {
               <h1>Список дел</h1>
               <TodoForm onFormSubmit={handleFormSubmit} />
               <br />
+              <Tabs defaultActiveKey="all">
+                <TabPane tab="Все" key="all">
+                  <Todotab
+                    todos={todos}
+                    onTodoToggle={handeToggleStatus}
+                    onTodoRemoval={handleRemoveTodo}
+                  />
+                </TabPane>
+                <TabPane tab="Активные" key="active">
+                  <Todotab
+                    todos={activeTodos}
+                    onTodoToggle={handeToggleStatus}
+                    onTodoRemoval={handleRemoveTodo}
+                  />
+                </TabPane>
+                <TabPane tab="Завершённые" key="complete">
+                  <Todotab
+                    todos={completedTodos}
+                    onTodoToggle={handeToggleStatus}
+                    onTodoRemoval={handleRemoveTodo}
+                  />
+                </TabPane>
+              </Tabs>
             </Col>
           </Row>
         </div>
