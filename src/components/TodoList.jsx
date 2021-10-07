@@ -58,6 +58,22 @@ const TodoList = () => {
 
   useEffect(() => {
     refresh();
-  }, [refreshing]);
+  }, [onRefresh]);
+
+  return (
+    <Layout className="layout">
+      <Content style={{ padding: '0 50px' }}>
+        <div className="todolist">
+          <Row>
+            <Col span={14} offset={5}>
+              <h1>Список дел</h1>
+              <TodoForm onFormSubmit={handleFormSubmit} />
+              <br />
+            </Col>
+          </Row>
+        </div>
+      </Content>
+    </Layout>
+  );
 };
 export default TodoList;
