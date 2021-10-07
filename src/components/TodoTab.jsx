@@ -24,4 +24,4 @@ const Todotab = ({ todos, onTodoRemoval, onTodoToggle }) => {
   );
 };
 
-export default TodoTab;
+export default Todotab;
