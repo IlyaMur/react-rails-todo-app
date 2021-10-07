@@ -26,9 +26,9 @@ const TodoForm = ({ onFormSubmit }) => {
         <Col xs={24} sm={24} md={17} lg={19} xl={20}>
           <Form.Item
             name={'name'}
-            rules={[{ required: true, message: 'This field is required' }]}
+            rules={[{ required: true, message: 'Это поле обязательное!' }]}
           >
-            <Input placeholder="What needs to be done?" />
+            <Input placeholder="Что нужно сделать?" />
           </Form.Item>
         </Col>
         <Col xs={24} sm={24} md={7} lg={5} xl={4}></Col>
